@@ -1,5 +1,5 @@
 # social-web-app
-A sad version of linked in. To run follow
+A sad version of linkedin. To run follow
 1. npm install
 2. cd client
 3. npm install
