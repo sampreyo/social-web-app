@@ -1,6 +1,7 @@
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
+import {clearCurrentProfile} from './profileActions';
 
 import { GET_ERRORS, SET_CURRENT_USER } from './types';
 
@@ -57,4 +58,21 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
+};
+export const checklogin = () => dispatch => {
+  if (localStorage.jwtToken) {
+    // Set auth token header auth
+    
+    const decoded = jwt_decode(localStorage.jwtToken);
+    // Check for expired token
+    const currentTime = Date.now() / 1000;
+    if (decoded.exp < currentTime) {
+      // Logout user
+      dispatch(logoutUser());
+      // Clear current Profile
+      dispatch(clearCurrentProfile());
+      // Redirect to login
+      
+    }
+  }
 };
